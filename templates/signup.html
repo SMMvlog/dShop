@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} signup_form
+{% endblock title %}
+{% block body %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+  <strong>{{message.tags}}!</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+</div>
+
+<div class="p-4 m-4">
+<div class="col-lg-5 mx-auto border rounded-3 p-4">
+<h3 class="alert alert-light border rounded-3"> Creat An Account</h3>
+<form action="/signup/" method="POST">
+{% csrf_token %}
+<div class="mb-3">
+    <label for="uname" class="form-label">User Name:</label>
+    <input type="text" class="form-control form-control-sm" name="uname" id="uname" placeholder="enter user name" required>
+    </div>
+  <div class="mb-3">
+    <label for="fname" class="form-label">FirstName:</label>
+    <input type="text" class="form-control form-control-sm" name="fname" id="fname" placeholder="enter your first name" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="lname" class="form-label">LastName:</label>
+    <input type="text" class="form-control form-control-sm" name="lname" id="lname" placeholder="enter your last name" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="mobile" class="form-label">Mobile No.</label>
+    <input type="tel" class="form-control form-control-sm" name="mobile" id="mobile" placeholder="986754345" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="email" class="form-label">Email Address:</label>
+    <input type="email" class="form-control form-control-sm" name="email" id="email" placeholder="enter your email address" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="password1" class="form-label">Password:</label>
+    <input type="password" class="form-control form-control-sm" name="password1" id="password1" placeholder="***********" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="password2" class="form-label">Confirm Password:</label>
+    <input type="password" class="form-control form-control-sm" name="password2" id="password2" placeholder="***********" required>
+    </div>
+
+  <button type="submit" class="btn btn-info">Submit</button>
+</form>
+</div>
+</div>
+</div>
+
+{% endblock body %}

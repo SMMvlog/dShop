@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock%}
+  
+{% block body %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+  <strong>{{message.tags}}!</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+</div>
+
+ <div class="container-fluid mt-2">
+ <div class="row max-auto">
+ <!--for ategory showing-->
+  
+  <div class="col-lg-3 mx-auto">
+  <ul class="list-group">
+  <li class="list-group-item">All Products</li>
+  {% for i in cat %}
+  <a href="/?cat={{i.id}}" class="list-group-item">{{i.name}}</a>
+  {% endfor %}
+</ul>  
+  </div>
+ 
+ 
+ <!--for product showing-->
+ <div class="col-lg-9">
+  <div class="row max-auto"> 
+  {% for p in pro %}
+    <div class="card mx-auto mb-3" id="{{p.id}}" style="width: 18rem;">
+  <img src="{{p.image.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{p.name}}</h5>
+    <h5 class="price">Rs-{{p.price}}</h5>
+    <p class="card-text">{{p.description}}</p>
+    <form action="/#{{p.id}}" method="post">
+    {% csrf_token %}
+    <input type="text" hidden value="{{p.id}}" name="id">
+    <input type="submit" class="cart" value="Add To Cart" class="btn btn-light border btn-sm">
+    </form> 
+    {% comment %} <span id="pr{{i.id}}">
+    <button type="submit" id="{{p.id}}" class="btn btn-primary cart">Add To Cart</button>
+  </span> {% endcomment %}
+  </div>
+  </div>
+{% endfor %}
+</div>
+</div>
+
+</div>
+</div>
+
+
+{% endblock %}
+
+ {% block js %}
+ 
+ <script>
+ 
+{% comment %} console.log("Working");
+if (("crtt")==undefined){
+  window.location =('{% url "cart" %}')
+}
+else{
+  window.location =('{% url "index" %}')
+} {% endcomment %}
+{% comment %} if(localStorage.getItem('cart')== null){
+  var cart = {};
+}
+else
+{
+    cart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+$(".cart").click(function(){
+  console.log("Clicked");
+  var crt = this.id.toString();
+  console.log(crt);
+  if (cart[crt] != undefined)
+  {
+    cart[crt] = cart[crt]+1;
+  }
+  else
+  {
+    cart[crt] = 1;
+  }
+  console.log(cart);
+  localStorage.setItem('cart',JSON.stringify(cart));
+  document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+function updateCart(cart){
+    for (var item in cart){
+      document.getElementById('pr'+item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'> - </button> <span id='val" + item + "'>" + cart[item] + " </span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>"; 
+    }
+
+  }
+  
+});
+
+jQuery.noConflict();
+jQuery(document).ready(function($){
+$("#pop").popover()
+document.getElementById('pop').setAttribute('data-bs-content',"<h1>Hello</h1>");
+
+}); {% endcomment %}
+
+</script>
+  {% endblock %}
+

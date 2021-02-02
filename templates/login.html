@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Login Page
+{% endblock title %}
+
+{% block body %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+  <strong>{{message.tags}}!</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+</div>
+
+
+<div class="p-4 m-4">
+<div class="col-lg-5 mx-auto border rounded-3 p-4">
+<h3 class="alert alert-light border rounded-3"> Login </h3>
+<form action="/login/" method="POST">
+{% csrf_token %}
+  <div class="mb-3">
+    <label for="uname" class="form-label">username</label>
+    <input type="text" class="form-control" id="uname" name="uname" required>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password" required>
+  </div>
+  <button type="submit" class="btn btn-primary">login</button>
+</form>
+</div>
+</div>
+</div>
+
+{% endblock body %}
